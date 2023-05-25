@@ -3,13 +3,9 @@ function calcShipping(sum, min, shipping) {
   let freeShippingMinSum = min; // минимальная сумма для бесплатной доставки
   let shippingPrice = shipping; // стоимость доставки
   let shippingSum;
-  if (productsSum == 0) {
+  if (productsSum == 0 || productsSum >= freeShippingMinSum) {
     shippingSum = 0;
-  }
-  if (productsSum >= freeShippingMinSum) {
-    shippingSum = 0;
-  }
-  if (productsSum > 0 && productsSum < freeShippingMinSum) {
+  } else {
     shippingSum = shippingPrice;
   }
 
@@ -47,7 +43,8 @@ function calcInvoice({
   // прибавьте к totalSum значение shippingSum
   totalSum += shippingSum;
   let freeShipping;
-  shippingSum == 0 ? (freeShipping = true) : (freeShipping = false);
+ // shippingSum == 0 ? (freeShipping = true) : (freeShipping = false);
+  freeShipping = shippingSum == 0 ? true : false;
   return {
     discount: discountSum,
     freeShipping,
